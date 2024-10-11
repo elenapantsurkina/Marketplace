@@ -22,11 +22,13 @@ class Command(BaseCommand):
             {'name': 'Synergetic',
              'description': 'Универсальный очиститель',
              'category': category,
-             'price': Decimal('200.00')},
+             'price': Decimal('200.00'),
+             'image': 'img/univer.jpg'},
             {'name': 'Probioneat',
              'description': 'Дизенфецирующее средство',
              'category': category,
-             'price': Decimal('200.00')},
+             'price': Decimal('200.00'),
+             'image': 'img/dez.jpg'},
         ]
 
         for product_data in products:
