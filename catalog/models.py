@@ -48,7 +48,7 @@ class Product(models.Model):
         help_text="Введите наименование категории",
         null=True,
         blank=True,
-        related_name='Products'
+        related_name='products'
     )
     price = models.DecimalField(
         max_digits=10, decimal_places=2,
