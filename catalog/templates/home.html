@@ -2,12 +2,11 @@
 
 {% load my_tags %}
 
-{% block content %}
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Marketplace</h1>
-    <p class="lead">Marketplace - это отличный вариант торговой площадки для продажи товаров</p>
-</div>
 
+
+{% block content %}
+
+{% include 'includes/inc_title.html' %}
 <div class="container">
     <div class="row text-center">
         {% for product in products %}
