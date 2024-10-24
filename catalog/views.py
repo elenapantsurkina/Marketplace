@@ -1,4 +1,3 @@
-
 from django.views.generic import ListView, TemplateView, DetailView
 
 from catalog.models import Product
@@ -9,7 +8,7 @@ class ProductListView(ListView):
 
 
 class ContactsView(TemplateView):
-    template_name = 'catalog/contacts.html'
+    template_name = "catalog/contacts.html"
 
 
 class ProductDetailView(DetailView):
