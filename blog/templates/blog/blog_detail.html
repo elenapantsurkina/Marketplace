@@ -21,8 +21,16 @@
                     <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                         <p>{{ object.content|truncatechars:1000 }}</p>
                     </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Редактировать</button>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Удалить</button>
+                <div class="d-flex justify-content-around">
+                    <form method="post" action="{% url 'blog:blog_update' object.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Редактировать</button>
+                    </form>
+                    <form method="post" action="{% url 'blog:blog_delete' object.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-danger">Удалить</button>
+                    </form>
+                </div>
                 </div>
             </div>
         </div>
