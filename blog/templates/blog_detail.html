@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+
+{% load my_tags %}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Содержимое записи</h1>
+</div>
+
+{% block content %}
+
+<div class="container">
+    <div class="row text-center">
+
+        <div class="col-4 d-flex">
+            <div class="card mb-4 box-shadow w-100">
+                <div class="card-header">
+                    <img src="{{ blog.image | media_filter }}">
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ object.title }}</h1>
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <p>{{ object.content|truncatechars:1000 }}</p>
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Редактировать</button>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Удалить</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock%}
