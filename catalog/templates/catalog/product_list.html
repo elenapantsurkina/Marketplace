@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 
 {% load my_tags %}
 
@@ -6,10 +6,10 @@
 
 {% block content %}
 
-{% include 'includes/inc_title.html' %}
+{% include 'catalog/includes/inc_title.html' %}
 <div class="container">
     <div class="row text-center">
-        {% for product in products %}
+        {% for product in object_list %}
         <div class="col-4 d-flex">
             <div class="card mb-4 box-shadow w-100">
                 <div class="card-header">
