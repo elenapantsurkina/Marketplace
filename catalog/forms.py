@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from catalog.models import Product
 from django.core.exceptions import ValidationError
+from django.forms.fields import BooleanField
 
 
 class ProductForm(ModelForm):
@@ -44,37 +45,12 @@ class ProductForm(ModelForm):
             raise ValidationError("Цена не может быть отрицательной")
         return price
 
+
+class StyleFormMixin:
     def __init__(self, *args, **kwargs):
-        super(ProductForm, self).__init__(*args, **kwargs)
-
-        # Настройка атрибутов виджета для поля 'name'
-        self.fields["name"].widget.attrs.update(
-            {
-                "class": "form-control",  # Добавление CSS-класса для стилизации поля
-                "placeholder": "Введите наименование продукта",  # Текст подсказки внутри поля
-            }
-        )
-
-        # Настройка атрибутов виджета для поля 'description'
-        self.fields["description"].widget.attrs.update(
-            {
-                "class": "form-control",  # Добавление CSS-класса для стилизации поля
-                "placeholder": "Введите описание продукта",  # Текст подсказки внутри поля
-            }
-        )
-
-        # Настройка атрибутов виджета для поля 'price'
-        self.fields["price"].widget.attrs.update(
-            {
-                "class": "form-control",  # Добавление CSS-класса для стилизации поля
-                "placeholder": "Введите цену продукта",  # Текст подсказки внутри поля
-            }
-        )
-
-        # Настройка атрибутов виджета для поля 'category'
-        self.fields["category"].widget.attrs.update(
-            {
-                "class": "form-control",  # Добавление CSS-класса для стилизации поля
-                "placeholder": "Укажите категорию продукта",  # Текст подсказки внутри поля
-            }
-        )
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if isinstance(field, BooleanField):
+                field.widget.attrs["class"] = "form-check-input"
+            else:
+                field.widget.attrs["class"] = "form-control"
