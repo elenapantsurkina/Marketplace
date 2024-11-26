@@ -12,10 +12,15 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseForbidden
+from django.forms import inlineformset_factory
+from catalog.services import get_catalog_from_cache
 
 
 class ProductListView(ListView):
     model = Product
+
+    def get_queryset(self):
+        return get_catalog_from_cache()
 
 
 class ContactsView(TemplateView):
