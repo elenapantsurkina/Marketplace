@@ -7,21 +7,43 @@ from django.views.generic import (
     DeleteView,
 )
 from catalog.forms import ProductForm, ProductModeratorForm
-from catalog.models import Product
+from catalog.models import Product, Category
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseForbidden
 from django.forms import inlineformset_factory
-from catalog.services import get_catalog_from_cache
+from catalog.services import get_products_by_category
+from django.core.cache import cache
+from django.shortcuts import get_object_or_404, render
 
 
 class ProductListView(ListView):
     model = Product
 
-    def get_queryset(self):
-        return get_catalog_from_cache()
+    # def get_queryset(self):
+    #     products = cache.get("products")
+    #     if not products:
+    #         products = Product.objects.all()
+    #         cache.set("products", products, 60)
+    #         return products
 
+
+class ProductCategoryListView(ListView):
+    model = Category
+    template_name = "catalog/products_category_list.html"
+    context_object_name = 'cat_list'
+
+    # def get_queryset(self):
+    #     category_id = self.request.GET.get("category")
+    #     if not category_id:
+    #         return Product.objects.none()
+    #     category = get_object_or_404(Category, id=category_id)
+    #     return get_products_by_category(category.id)
+
+def get_catgory_list(request):
+    cat_list = Category.objects.all()
+    return render(request, "catalog/products_category_list.html", {"cat_list":  cat_list})
 
 class ContactsView(TemplateView):
     template_name = "catalog/contacts.html"
