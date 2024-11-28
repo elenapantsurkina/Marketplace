@@ -13,6 +13,8 @@ python-dotenv = "^1.0.1"
 black = "^24.10.0"
 pillow = "^10.4.0"
 ipython = "^8.28.0"
+redis = "^5.2.0"
+
 
 
 [build-system]

@@ -7,15 +7,38 @@ from django.views.generic import (
     DeleteView,
 )
 from catalog.forms import ProductForm, ProductModeratorForm
-from catalog.models import Product
+from catalog.models import Product, Category
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseForbidden
+from catalog.services import get_products_by_category
+from django.shortcuts import render
 
 
 class ProductListView(ListView):
     model = Product
+
+
+class ProductCategoryListView(ListView):
+    model = Product
+    template_name = "catalog/products_category_list.html"
+    # context_object_name = 'cat_list'
+
+    def get_queryset(self):
+        category_id = self.kwargs.get("category_id")
+        return get_products_by_category(category_id=category_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.all()
+        context["categories"] = categories
+        return context
+
+
+# def get_catgory_list(request):
+#     cat_list = Category.objects.all()
+#     return render(request, "catalog/products_category_list.html", {"cat_list":  cat_list})
 
 
 class ContactsView(TemplateView):
